@@ -1,8 +1,9 @@
 import SvgIcon from './SvgIcon/index.vue'
 import Pagination from './Pagination/index.vue'
+import Category from './Category/index.vue'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 console.log(ElementPlusIconsVue)
-const allGloablComponent={SvgIcon,Pagination};
+const allGloablComponent={SvgIcon,Pagination,Category};
 
 export default{
     install(app: any)
