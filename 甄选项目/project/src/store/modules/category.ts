@@ -4,7 +4,8 @@ let useCategoryStore=defineStore('Category',{
     
     state:()=>{
         return {
-            c1Arr:[]
+            c1Arr:[],
+            c1Id:''
         }
     },
     actions:{
@@ -12,7 +13,6 @@ let useCategoryStore=defineStore('Category',{
             if(result.code==200)
             {
                 this.c1Arr=result.data;
-                console.log(111111);
                 console.log("c1Arr",this.c1Arr);
             }else
             {
@@ -24,4 +24,4 @@ let useCategoryStore=defineStore('Category',{
 
     }
 })
-export default useCategoryStore;        
+export default useCategoryStore; 
