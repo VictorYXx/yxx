@@ -1,8 +1,8 @@
 import request from '@/utils/request';
 enum Api{
-    C1_URL='/admin/product/getCategory1';
-    C2_URL='/admin/product/getCategory2/';
-    C3_URL='/admin/product/getCategory3/';
+    C1_URL='/admin/product/getCategory1',
+    C2_URL='/admin/product/getCategory2/',
+    C3_URL='/admin/product/getCategory3/',
 
 }
 export const reqC1=()=>request.get<any,any>(Api.C1_URL);
