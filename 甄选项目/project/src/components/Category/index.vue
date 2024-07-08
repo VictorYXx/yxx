@@ -10,19 +10,14 @@
           
                 </el-form-item>
                 <el-form-item label="二级分类">
-                    <el-select style="width: 400px;" >
-                        <el-option label="北京"></el-option>
-                        <el-option label="上海"></el-option>
-                        <el-option label="广州"></el-option>
-                        <el-option label="深圳"></el-option>
+                    <el-select style="width: 400px;" v-model="categoryStore.c2Id" @change="handler1">
+                        <el-option v-for="(c2,index) in categoryStore.c2Arr" :label="c2.name" :key="c2.id" :value="c2.id"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="三级分类" >
-                    <el-select style="width: 400px;" >
-                        <el-option label="北京"></el-option>
-                        <el-option label="上海"></el-option>
-                        <el-option label="广州"></el-option>
-                        <el-option label="深圳"></el-option>
+                    <el-select style="width: 400px;" v-model="categoryStore.c3Id">
+                        <el-option v-for="(c3,index) in categoryStore.c3Arr" :label="c3.name" :key="c3.id" :value="c3.id"></el-option>
+              
                     </el-select>
                 </el-form-item>
             </el-form>
@@ -55,7 +50,15 @@ const getC1 = () => {
     categoryStore.getC1();
     console.log("getC1",categoryStore.c1Arr);
 }
-
+const handler=()=>{
+    categoryStore.c2Id='';
+    categoryStore.c3Arr=[];
+    categoryStore.c3Id='';
+    categoryStore.getC2();
+}
+const handler1=()=>{
+    categoryStore.getC3();
+}
 let c1Id=ref<number|string>("");
 </script>
 
