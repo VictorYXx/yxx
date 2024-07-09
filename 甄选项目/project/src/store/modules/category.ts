@@ -10,6 +10,7 @@ let useCategoryStore=defineStore('Category',{
             c1Id:'',
             c2Arr:[],
             c2Id:'',
+            c3Id:'',
             c3Arr:[],
         }
     },

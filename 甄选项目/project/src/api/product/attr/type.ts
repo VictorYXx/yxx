@@ -10,5 +10,10 @@ export interface CategoryObj{
 }
 export interface CategoryResponseData extends ResponseData
 {
-    
+    data:CategoryObj[]
+}
+export interface AttrValue{
+    id:number,
+    valueName:string,
+    attrId:number
 }

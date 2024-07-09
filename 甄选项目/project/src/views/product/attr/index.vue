@@ -13,8 +13,21 @@
     </div>
     </template>
     <script setup lang='ts'>
+    import { watch } from "vue";
+    import { reqAttr } from "@/api/product/attr";
     import useCategoryStore from "@/store/modules/category";
     let categoryStore=useCategoryStore();
+    watch(()=> 
+        categoryStore.c3Id,async()=>{
+            const{c1Id,c2Id,c3Id}=categoryStore;
+            getAttr();
+            }
+    )
+    const getAttr=async()=>{
+        const{c1Id,c2Id,c3Id}=categoryStore;
+       let result= await reqAttr(c1Id,c2Id,c3Id);
+       console.log('asdc',result);
+    }
     </script>
     <style scoped lang='scss'>
     </style> 
