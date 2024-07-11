@@ -5,6 +5,7 @@ enum Api {
   C2_URL = '/admin/product/getCategory2/',
   C3_URL = '/admin/product/getCategory3/',
   ATTR_URL = '/admin/product/attrInfoList/',
+  ADDORUPDATEATTR_URL = '/admin/product/saveAttrInfo',
 }
 export const reqC1 = () => request.get<any, CategoryResponseData>(Api.C1_URL)
 export const reqC2 = (category1Id: number | string) =>
@@ -19,4 +20,5 @@ export const reqAttr = (
   request.get<any, AttrResponseData>(
     Api.ATTR_URL + `${category1Id}/${category2Id}/${category3Id}`,
   )
+  export const reqAddOrUpdateAttr=(data:Attr)=>request.post<any,any>(Api.ADDORUPDATEATTR_URL,data);
 // export const reqAttr = (category1Id: string | number, category2Id: string | number, category3Id: string | number) => request.get<any, AttrResponseData>(API.ATTR_URL + `${category1Id}/${category2Id}/${category3Id}`);
