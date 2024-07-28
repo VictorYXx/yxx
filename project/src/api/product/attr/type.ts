@@ -25,7 +25,6 @@ export interface AttrValue {
     id?: number,
     valueName: string,
     attrId?: number,
-    flag?:boolean
 
 }
 //存储每一个属性值的数组类型
@@ -36,7 +35,6 @@ export interface Attr {
     attrName: string,
     categoryId: number|string,
     categoryLevel: number,
-    attrValueList: AttrValueList
 }
 //存储每一个属性对象的数组ts类型
 export type AttrList = Attr[];

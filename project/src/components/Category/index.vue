@@ -42,13 +42,12 @@ let categoryStore=useCategoryStore();
 //     }
 
 // });
-onMounted(()=>{
+onMounted(() => {
     getC1();
-console.log("111111122222",categoryStore.c1Arr)});
+});
 const getC1 = () => {
     //通知分类仓库发请求获取一级分类的数据
     categoryStore.getC1();
-    console.log("getC1",categoryStore.c1Arr);
 }
 const handler=()=>{
     categoryStore.c2Id='';
@@ -64,5 +63,4 @@ defineProps(['scene'])
 let c1Id=ref<number|string>("");
 </script>
 
-<style scoped lang='scss'>
-</style> 
+<style scoped></style>
