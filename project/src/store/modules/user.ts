@@ -44,6 +44,7 @@ let useUserStore = defineStore('User', {
       console.log(result);
     },
      async userLogout(){
+      console.log(111111222222)
       let result:any =await reqLogout();
       if(result.code==200){
       this.token='';

@@ -13,7 +13,7 @@
                 <el-table-column label="SPU操作" align="center" >
                     <template #="{row,index}">
                         <el-button type="primary" size="small" icon="Plus" title="添加SKU"></el-button>
-                        <el-button type="primary" size="small" icon="Edit" title="修改SKU"></el-button>
+                        <el-button type="primary" size="small" icon="Edit" title="修改SKU" @click="updateSpu(row)"></el-button>
                         <el-button type="primary" size="small" icon="View" title="查看SKU"></el-button>
                         <el-button type="primary" size="small" icon="Delete" title="删除SKU"></el-button>
                     </template>
@@ -25,7 +25,7 @@
             </el-pagination>
 
         </div>
-        <SpuForm v-show="secens==1" @changeScene="changeScene"></SpuForm>
+        <SpuForm ref="spu" v-show="secens==1" @changeScene="changeScene"></SpuForm>
         <SkuForm v-show="secens==2"></SkuForm>
         </el-card>
    
@@ -34,18 +34,22 @@
 </template>
 <script setup lang='ts'>
 import {ref,watch} from 'vue';
+ import type {SpuData} from '@/store/modules/category';
 import useCategoryStore from '@/store/modules/category';
 import {reqHasSpu} from '@/api/product/spu'
+// import type {SpuData} from '@/api/product/spu/types'
 import { HasSpuResponseData,Records } from '@/api/product/spu/type';
 import SpuForm from './spuForm.vue'
 import SkuForm from './skuForm.vue'
 
+
 let catggoryStore=useCategoryStore();
-let secens=ref<number>(1    );
+let secens=ref<number>(0);
 let pageNo=ref<number>(1);
 let pageSize=ref<number>(3);
 let records=ref<Records>([])
-let total=ref<number>(0)
+let total=ref<number>(0);
+let spu=ref<any>();
 watch(()=>catggoryStore.c3Id,()=>{
     getHasSpu()
 })
@@ -70,6 +74,13 @@ const changeScene=(num:number)=>{
     secens.value=num;
 
 }
+const updateSpu=(row:SpuData)=>{
+    secens.value=1;
+    spu.value.initHasSpuData(row);
+}
+// const addSpu=()=>{
+//     secens.value=1;
+// }
 </script>
 <style scoped lang='scss'>
 </style> 

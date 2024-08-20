@@ -2,28 +2,26 @@
 <div>
     <el-form>
         <el-form-item label="Spu名称">
-            <el-input placeholder="请你输入SPU名称"></el-input>
+            <el-input placeholder="请你输入SPU名称" v-model="SpuParams.spuName"></el-input>
         </el-form-item>
         <el-form-item label="SPU名牌">
-            <el-select>
-                <el-option>华为</el-option>
-                <el-option>小米</el-option>
-                <el-option>苹果</el-option>
+            <el-select v-model="SpuParams.tmId">
+                <el-option v-for="(item,index) in AllTradeMark" :key="item.id" :label="item.tmName"></el-option>
             </el-select>
         </el-form-item>
         <el-form-item label="SPU描述">
-            <el-input type="textare" placeholder="请你输入SPU描述"></el-input>
+            <el-input type="textare" placeholder="请你输入SPU描述" v-model="SpuParams.description"></el-input>
         </el-form-item>
-        <el-form-item label="SPU图标">
-            <el-upload v-model:file-list="fileList" action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-                list-type="picture-card" :on-preview="handlePictureCardPreview" :on-remove="handleRemove">
+        <el-form-item label="SPU图片">
+            <el-upload v-model:file-list="imgList" action="/api/admin/product/fileUpload"
+                list-type="picture-card" :on-preview="handlePictureCardPreview" :on-remove="handleRemove" :before-upload="handleUpload">
                 <el-icon>
                     <Plus />
                 </el-icon>
             </el-upload>
         </el-form-item>
-        <el-dialog>
-                <img w-full  alt="Preview Image" />
+        <el-dialog v-model="dialogVisible">
+                <img w-full :src="dialogImageUrl"alt="Preview Image" style="width: 100%; height: 100%"/>
             </el-dialog>
  
         <el-form-item label="SPU销售属性">
@@ -50,10 +48,90 @@
 </div>
 </template>
 <script setup lang='ts'>
+
 let $emit=defineEmits(['changeScene'])
+import { HasSaleAttr, HasSaleAttrResponseData, SaleAttr, SaleAttrResponseData, SpuData, SpuHasImg } from '@/api/product/spu/type'
+import {reqAllTradeMark,reqSpuImageList,reqSpuHasSaleAttr,reqAllSaleAttr} from '@/api/product/spu'
+import {onMounted} from 'vue'
+import { SpuImg,TradeMark } from '@/api/product/trademark/type'
+import {ref} from 'vue'
+
 const cancel=()=>{
     $emit('changeScene',0)
 }
+let AllTradeMark=ref<TradeMark>([])
+
+let imgList=ref<SpuImg>([])
+
+let saleAttr=ref<SaleAttr>([])
+
+let allSaleAttr=ref<HasSaleAttr[]>([]);
+
+let dialogVisible=ref<boolean>(false);
+
+let dialogImageUrl=ref<string>('')
+
+let SpuParams=ref<SpuData>({
+    category3Id:"",
+    spuName:"",
+    description:"",
+    tmId:"",
+    spuImageList:[],
+    spuSaleAttrList:[]
+});
+const initHasSpuData=async(spu:SpuData)=>{
+    SpuParams.value=spu;
+    let result=await reqAllTradeMark();
+    console.log('spuId',spu);
+    
+    let result1:SpuHasImg=await reqSpuImageList(spu.id)
+    console.log(result1);
+    let result2:SaleAttrResponseData=await reqSpuHasSaleAttr((spu.id as number))
+    console.log(result2)
+    let result3:HasSaleAttrResponseData =await reqAllSaleAttr();
+    console.log(result3)
+
+    AllTradeMark.value=result.data;
+    imgList.value=result1.data.map(item=>{
+        return {
+            name:item.imgName,
+            url:item.imgUrl
+        }
+    })
+    saleAttr.value=result2.data;
+    allSaleAttr.value=result3.data;
+
+}
+
+const handlePictureCardPreview=(file:any)=>{
+    dialogImageUrl.value=file.
+    dialogVisible.value=true;
+
+}
+
+const handleRemove=()=>{
+
+}
+const handleUpload=(file:any)=>{
+    if(file.type=='image/png'||file.type=='image/jpeg'||file.type=='image/gif'){
+        if(file.size/1024/1024<3)
+    {
+        return true;
+    }else
+    {
+        ElMessage({
+            type:'error',
+            message:'上传文件必小于3M'
+        })
+    }
+        return true;
+    }else{return false;}
+}
+defineExpose({initHasSpuData})
+// onMounted=()=>{
+//     console.log(123)
+// }
+onMounted
 </script>
 <style scoped lang='scss'>
 </style> 
