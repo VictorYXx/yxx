@@ -62,13 +62,15 @@ export interface SaleAttrValue {
 }
 export type SpuSaleAttrValueList = SaleAttrValue[]
 export interface SaleAttr {
-  id?: number
-  createTime: null
-  updateTime: null
-  spuId?: number
-  baseSaleAttrId: number
-  saleAttrName: string
-  spuSaleAttrValueList: SpuSaleAttrValueList
+  "id"?: number,
+  "createTime"?: null,
+  "updateTime"?: null,
+  "spuId"?: number,
+  "baseSaleAttrId": number | string,
+  "saleAttrName": string,
+  "spuSaleAttrValueList": SpuSaleAttrValueList
+  flag?: boolean,
+  saleAttrValue?: string,
 }
 export interface SaleAttrResponseData extends ResponseData {
   data: SaleAttr[]
@@ -79,4 +81,24 @@ export interface HasSaleAttr {
 }
 export interface HasSaleAttrResponseData extends ResponseData {
   data: HasSaleAttr[]
+}
+export interface Attr{
+  "attrId":number|string,
+  "valueId":number|string
+}
+export interface  saleAttr{
+  "saleAttrId":number|string,
+  "saleAttrValueId":number|string
+}
+export interface SkuData{
+  "category3Id":string|number,
+  "spuId":string|number,
+  "tmId":string|number,
+  "skuName":string|number,
+  "price":string|number,
+  "weight":string|number,
+  "skuDesc":string,
+  "skuAttrValueList"?:Attr[],
+  "skuSaleAttrValueList"?:saleAttr[],
+  "skuDefaultImg":string
 }
