@@ -14,7 +14,7 @@
                     <template #="{row,index}">
                         <el-button type="primary" size="small" icon="Plus" title="添加SKU" @click="addSku(row)"></el-button>
                         <el-button type="primary" size="small" icon="Edit" title="修改SKU" @click="updateSpu(row)"></el-button>
-                        <el-button type="primary" size="small" icon="View" title="查看SKU"></el-button>
+                        <el-button type="primary" size="small" icon="View" title="查看SKU" @click="findSku(row)"></el-button>
                         <el-button type="primary" size="small" icon="Delete" title="删除SKU"></el-button>
                     </template>
                 </el-table-column>
@@ -36,9 +36,9 @@
 import {ref,watch} from 'vue';
  import type {SpuData} from '@/store/modules/category';
 import useCategoryStore from '@/store/modules/category';
-import {reqHasSpu} from '@/api/product/spu'
+import {reqHasSpu,reqSkuList} from '@/api/product/spu'
 // import type {SpuData} from '@/api/product/spu/types'
-import { HasSpuResponseData,Records } from '@/api/product/spu/type';
+import { HasSpuResponseData,Records,SkuInfoData} from '@/api/product/spu/type';
 import SpuForm from './spuForm.vue'
 import SkuForm from './skuForm.vue'
 

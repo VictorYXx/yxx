@@ -13,7 +13,6 @@ interface dataType{
 }
 export interface loginResponseData extends ResponseData
 {
-
     data:string
 }
 export interface userInfoResponseData extends ResponseData

@@ -31,10 +31,11 @@ export interface AttrValue {
 export type AttrValueList = AttrValue[];
 //属性对象
 export interface Attr {
-    id?: number,
-    attrName: string,
-    categoryId: number|string,
-    categoryLevel: number,
+    id?: number
+  attrName: string
+  categoryId: number | string
+  categoryLevel: number
+  attrValueList: AttrValueList
 }
 //存储每一个属性对象的数组ts类型
 export type AttrList = Attr[];

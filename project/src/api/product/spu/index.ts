@@ -5,6 +5,7 @@ import {
   SpuHasImg,
   HasSaleAttrResponseData,
   SkuData,
+  SkuInfoData
 } from './type'
 enum API {
   HASSPU_URL = '/admin/product/',
@@ -17,6 +18,7 @@ enum API {
  //更新已有的SPU
  UPDATESPU_URL = '/admin/product/updateSpuInfo',
  ADDSKU_URL = '/admin/product/saveSkuInfo',
+ SKUINFO_URL='/admin/product/findBySpuId/'
 
 }
 export const reqHasSpu = (
@@ -46,3 +48,4 @@ export const reqAddOrUpdateSpu = (data: any) => {
 }
 export const reqAddSku = (data: any) =>
   request.post<any, SkuData>(API.ADDSKU_URL, data)
+export const reqSkuList=(spuId:number|string)=>request.get<any,SkuInfoData>(API.SKUINFO_URL+spuId);

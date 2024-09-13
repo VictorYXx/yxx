@@ -19,7 +19,7 @@ export const reqAttr = (
   category3Id: string | number,
 ) =>
   request.get<any, AttrResponseData>(
-    Api.ATTR_URL + `2/6/61`,
+    Api.ATTR_URL  + `${category1Id}/${category2Id}/${category3Id}`,
   )
 
 export const reqAddOrUpdateAttr=(data:Attr)=>request.post<any,any>(Api.ADDORUPDATEATTR_URL,data);
