@@ -8,20 +8,24 @@ export interface Attr{
     valueId:number|string
   }
   export interface  saleAttr{
+    id?:number,
+    saleAttrValueName:string,
     saleAttrId:number|string,
     saleAttrValueId:number|string
   }
   export interface SkuData{
-    category3Id:string|number,
-    spuId:string|number,
-    tmId:string|number,
-    skuName:string|number,
-    price:string|number,
-    weight:string|number,
-    skuDesc:string,
+    category3Id?:string|number,
+    spuId?:string|number,
+    tmId?:string|number,
+    skuName?:string|number,
+    price?:string|number,
+    weight?:string|number,
+    skuDesc?:string,
     skuAttrValueList?:Attr[],
     skuSaleAttrValueList?:saleAttr[],
-    skuDefaultImg:string
+    skuDefaultImg?:string,
+    isSale?:number,
+    id?:number
   }
   export interface SkuResponseData  extends ResponseData{
     data:{
@@ -37,4 +41,7 @@ export interface Attr{
         "searchCount":boolean,
         "page":number
     }
+  }
+  export interface SkuInfoData extends ResponseData{
+    data:SkuData
   }
