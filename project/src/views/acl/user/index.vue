@@ -26,7 +26,7 @@
             <el-table-column align="center" label="更新时间" prop="updateTime" show-overflow-tooltip></el-table-column>
             <el-table-column align="center" label="操作" width="300px">
                 <template #="{row,$index}">
-                    <el-button type="primary" size="small" icon="User">分配角色</el-button>
+                    <el-button type="primary" size="small" icon="User" @click="setRole">分配角色</el-button>
                     <el-button type="primary" size="small" icon="Edit" @click="updateUser(row)">编辑</el-button>
                     <el-button type="primary" size="small" icon="Edit">删除 </el-button>
                 </template>
@@ -69,9 +69,30 @@
             </div>
         </template>
     </el-drawer>
-    <el-drawer v-model="drawer2" :direction="direction">
+    <el-drawer v-model="drawer1" :direction="direction">
         <template #header>
-            <h4>set title by slot</h4>
+            <h4>分配角色(职位)</h4>
+        </template>
+        <template #default>
+            <div>
+                <el-form>
+                    <el-form-item label="用户姓名">
+                        <el-input v-model="userParams.username" :disable="true"></el-input>
+                    </el-form-item>
+                    <el-form-item lable="职位列表">
+                        <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handlerCheckAllChange">全选</el-checkbox>
+                        <el-checkbox-group>
+                            <el-checkbox v-for="(role,index) in 10" :key="index" :label="index">{{role}}</el-checkbox>
+                        </el-checkbox-group>
+                    </el-form-item>
+                </el-form>
+            </div>
+        </template>
+        <template #footer>
+            <div style="flex: auto;">
+                <el-button @click="cancelClick">cancel</el-button>
+                <el-button type="primary" @click="confirmClick">confirm</el-button>
+            </div>
         </template>
     </el-drawer>
 </div>
@@ -89,6 +110,7 @@ let pageSize=ref<number>(5);
 let total=ref<number>(0);
 let userArr=ref<Records>([]);
 let drawer=ref<boolean>(false);
+let drawer1=ref<boolean>(false);
 let userStore=useUserStore();
 const getHasUser=async(pager=1)=>{
     console.log(111)
@@ -198,7 +220,16 @@ const rules={
         validator:validatorPassword
     }]
 }
-
+const setRole=(row:User)=>{
+    drawer1.value=true;
+    console.log(row);
+    Object.assign(userParams,row);
+}
+let checkAll=ref<boolean>(false);
+const isIndeterminate=ref<boolean>(true);
+const handlerCheckAllChange=()=>{
+    console.log(123);
+}
 </script>
 <style scoped lang='scss'>
 .form{
