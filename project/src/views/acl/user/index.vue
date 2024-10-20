@@ -81,8 +81,8 @@
                     </el-form-item>
                     <el-form-item lable="职位列表">
                         <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handlerCheckAllChange">全选</el-checkbox>
-                        <el-checkbox-group>
-                            <el-checkbox v-for="(role,index) in 10" :key="index" :label="index">{{role}}</el-checkbox>
+                        <el-checkbox-group v-model="userRole">
+                            <el-checkbox v-for="(role,index) in allRole" :key="index" :label="role">{{role}}</el-checkbox>
                         </el-checkbox-group>
                     </el-form-item>
                 </el-form>
@@ -226,9 +226,15 @@ const setRole=(row:User)=>{
     Object.assign(userParams,row);
 }
 let checkAll=ref<boolean>(false);
+let allRole=ref(['销售','前台','财务','boss']);
+let userRole=['销售','前台'];
 const isIndeterminate=ref<boolean>(true);
-const handlerCheckAllChange=()=>{
-    console.log(123);
+const handlerCheckAllChange=(val:boolean)=>{
+   userRole.value= val?allRole.value:[];
+   isIndeterminate.value=false;
+}
+const handleCheckedCitiesChange=()=>{
+    isIndeterminate.value=allRole.value.length===userRole.value.length;
 }
 </script>
 <style scoped lang='scss'>
